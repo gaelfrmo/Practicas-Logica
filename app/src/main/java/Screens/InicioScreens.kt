@@ -26,7 +26,6 @@ fun InicioScreen(modifier: Modifier = Modifier) {
         }
 }
 
-}
 
 @Preview(showBackground = true)
 @Composable
