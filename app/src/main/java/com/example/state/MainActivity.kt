@@ -8,10 +8,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.state.ui.theme.StateTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,12 +22,25 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             StateTheme {
+                var textoIngresado by remember { mutableStateOf("") }
+                val listaElementos = remember { mutableStateListOf<String>() }
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    InicioScreen(modifier = Modifier.padding(innerPadding)
+                    InicioScreen(
+                        modifier = Modifier.padding(innerPadding),
+                        textoIngresado = textoIngresado,
+                        elementos = listaElementos,
+                        onTextoChange = { nuevoTexto ->
+                            textoIngresado = nuevoTexto
+                        },
+                        onAgregar = {
+                            if (textoIngresado.isNotBlank()) {
+                                listaElementos.add(textoIngresado)
+                                textoIngresado = ""
+                            }
+                        }
                     )
                 }
             }
         }
     }
 }
-
