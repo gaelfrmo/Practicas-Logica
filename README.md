@@ -5,7 +5,7 @@ Repositorio personal para organizar y documentar las prácticas, ejercicios de l
 
 ## Contents:
 
-- **Práctica 1:** Contador []()
+- **Práctica 1:** Contador [](https://github.com/gaelfrmo/Practicas-Logica/blob/practica-01-contador/app/src/main/java/Screens/InicioScreens.kt)
 - **Práctica 2:** Suma []()
 - **Práctica 3:** Repetir letra []()
 - **Práctica 4:** Listas []()
