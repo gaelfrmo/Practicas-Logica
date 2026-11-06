@@ -136,7 +136,7 @@ fun ControlesLectura(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                        Interlineado.entries.forEach { opcion -> // <-- AQUÍ SE USA ENTRIES EN LUGAR DE VALUES()
+                        Interlineado.entries.forEach { opcion ->
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                         RadioButton(
                                                 selected = (interlineado == opcion),
