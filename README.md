@@ -19,6 +19,6 @@ Repositorio personal para organizar y documentar las prácticas, ejercicios de l
 - **Práctica 12:** [Cuenta dividida](https://github.com/gaelfrmo/Practicas-Logica/tree/practica-12-cuenta-individual)
 - **Práctica 13:** [Gestor de tareas](https://github.com/gaelfrmo/Practicas-Logica/tree/practica-13-tareas-pendientes)
 - **Práctica 14:** [Inicio de sesión (Clínica Vida)](https://github.com/gaelfrmo/Practicas-Logica/tree/practica-14-clinica-vida)
-- **Práctica 15:** [Reseñas de restaurantes](https://github.com/gaelfrmo/Practicas-Logica/tree/practica-15-reseñas-rest)
+- **Práctica 15:** [Reseñas de restaurantes](https://github.com/gaelfrmo/Practicas-Logica/tree/practica-15-resenas-rest)
 - **Práctica 16:** [Presupuesto mensual](https://github.com/gaelfrmo/Practicas-Logica/tree/practica-16-presupuesto-mensual)
 - **Práctica 17:** [Quiz de programación](https://github.com/gaelfrmo/Practicas-Logica/tree/practica-17-quiz-programacion)
