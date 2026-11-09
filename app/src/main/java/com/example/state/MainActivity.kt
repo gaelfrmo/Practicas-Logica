@@ -1,6 +1,6 @@
 package com.example.state
 
-import com.example.state.screens.InicioScreen
+import com.example.state.screens.PokemartScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             StateTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    InicioScreen(modifier = Modifier.padding(innerPadding)
+                    PokemartScreen(modifier = Modifier.padding(innerPadding)
                     )
                 }
             }
