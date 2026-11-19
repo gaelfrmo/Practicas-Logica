@@ -1,30 +1,33 @@
 package com.example.state.screens
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.state.components.FormularioGasto
 import com.example.state.components.ListaGastos
 import com.example.state.components.ResumenPresupuesto
-import com.example.state.model.Gasto
+import com.example.state.viewmodel.PresupuestoViewModel
 
 @Composable
-fun InicioScreens(modifier: Modifier = Modifier) {
-        var ingresoTexto by remember { mutableStateOf("4500") }
-        val gastos = remember { mutableStateListOf<Gasto>() }
-        var idCounter by remember { mutableStateOf(1) }
-
-        val ingresoNum = ingresoTexto.toDoubleOrNull() ?: 0.0
-
+fun InicioScreens(
+        modifier: Modifier = Modifier,
+        vm: PresupuestoViewModel = viewModel()
+) {
         Column(
                 modifier = modifier
                         .fillMaxSize()
@@ -35,37 +38,32 @@ fun InicioScreens(modifier: Modifier = Modifier) {
                 Text(text = "Mi presupuesto", fontSize = 22.sp, fontWeight = FontWeight.Bold)
                 Spacer(modifier = Modifier.height(16.dp))
                 OutlinedTextField(
-                        value = ingresoTexto,
-                        onValueChange = { ingresoTexto = it },
+                        value = vm.ingresoTexto,
+                        onValueChange = { vm.onIngresoChange(it) },
                         label = { Text("Ingreso Mensual (Beca)") },
                         modifier = Modifier.fillMaxWidth()
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
-                ResumenPresupuesto(ingreso = ingresoNum, gastos = gastos)
+                ResumenPresupuesto(ingreso = vm.ingresoNum, gastos = vm.gastos)
                 Spacer(modifier = Modifier.height(16.dp))
                 FormularioGasto(
                         onAgregar = { concepto, monto, categoria ->
-                                val nuevoGasto = Gasto(
-                                        id = idCounter++,
-                                        concepto = concepto,
-                                        monto = monto,
-                                        categoria = categoria
-                                )
-                                gastos.add(nuevoGasto)
+                                vm.agregarGasto(concepto, monto, categoria)
                         }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 ListaGastos(
-                        gastos = gastos,
+                        gastos = vm.gastos,
                         onEliminar = { gastoAEliminar ->
-                                gastos.remove(gastoAEliminar)
+                                vm.eliminarGasto(gastoAEliminar)
                         }
                 )
         }
 }
+
 @Preview(showBackground = true)
 @Composable
-fun inicioScreenPreview(){
+fun inicioScreenPreview() {
         InicioScreens()
 }
