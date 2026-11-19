@@ -12,85 +12,73 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.state.model.Cuenta
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.state.componets.ResultadoCuenta
 import com.example.state.componets.StepperPersonas
+import com.example.state.viewmodel.CuentaViewModel
 
 @Composable
-fun InicioScreen(modifier: Modifier = Modifier) {
-        var montoTexto by remember { mutableStateOf("") }
-        var propinaPct by remember { mutableStateOf(20) }
-        var personas by remember { mutableStateOf(1) }
+fun InicioScreen(
+    modifier: Modifier = Modifier,
+    vm: CuentaViewModel = viewModel()
+) {
+    val resultado = vm.resultado
 
-        val monto = montoTexto.toDoubleOrNull() ?: 0.0
-        val propinaTotal = monto * (propinaPct / 100.0)
-        val totalConPropina = monto + propinaTotal
-        val divisor = if (personas > 0) personas else 1
-        val montoPorPersona = totalConPropina / divisor
-
-        val resultado = Cuenta(
-            propinaTotal = propinaTotal,
-            totalConPropina = totalConPropina,
-            montoPorPersona = montoPorPersona,
-            sobrantePorRedondeo = 0.0
-        )
-        Column(
+    Column(
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        Text(text = "Cuenta dividida", fontSize = 30.sp)
+        Spacer(modifier = Modifier.height(16.dp))
+        OutlinedTextField(
+            value = vm.montoTexto,
+            onValueChange = { vm.onMontoChange(it) },
+            label = { Text("Monto de la cuenta") },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true
+        )
+        Text(text = "Propina", fontSize = 19.sp)
+        Row(
+            modifier = Modifier.padding(2.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = "Cuenta dividida", fontSize = 30.sp)
-            Spacer(modifier = Modifier.height(16.dp))
-            OutlinedTextField(
-                value = montoTexto,
-                onValueChange = { montoTexto = it },
-                label = { Text("Monto de la cuenta") },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true
-            )
-            Text(text = "Propina", fontSize = 19.sp)
-            Row(modifier= Modifier.padding(2.dp),
-                horizontalArrangement = Arrangement.SpaceBetween) {
-                Button(onClick = { propinaPct = 10 }) {
-                    Text(text = "10%")
-                }
-                Button(onClick = { propinaPct = 15 }) {
-                    Text(text = "15%")
-                }
-                Button(onClick = { propinaPct = 20 }) {
-                    Text(text = "20%")
-                }
-                Button(onClick = { propinaPct = 25 }) {
-                    Text(text = "Otro")
-                }
+            Button(onClick = { vm.onPropinaChange(10) }) {
+                Text(text = "10%")
             }
-            Text(text = "personas",fontSize = 19.sp)
-            StepperPersonas(
-                personas = personas,
-                onChange= {personas = it}
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            ResultadoCuenta(
-                propina = resultado.propinaTotal,
-                totalConPropina = resultado.totalConPropina,
-                montoPorPersona = resultado.montoPorPersona,
-                personas = personas,
-                sobrante = resultado.sobrantePorRedondeo
-            )
+            Button(onClick = { vm.onPropinaChange(15) }) {
+                Text(text = "15%")
+            }
+            Button(onClick = { vm.onPropinaChange(20) }) {
+                Text(text = "20%")
+            }
+            Button(onClick = { vm.onPropinaChange(25) }) {
+                Text(text = "Otro")
+            }
         }
+        Text(text = "personas", fontSize = 19.sp)
+        StepperPersonas(
+            personas = vm.personas,
+            onChange = { vm.onPersonasChange(it) }
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        ResultadoCuenta(
+            propina = resultado.propinaTotal,
+            totalConPropina = resultado.totalConPropina,
+            montoPorPersona = resultado.montoPorPersona,
+            personas = vm.personas,
+            sobrante = resultado.sobrantePorRedondeo
+        )
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun ScreenPreview() {
-        InicioScreen(modifier = Modifier)
+    InicioScreen(modifier = Modifier)
 }
