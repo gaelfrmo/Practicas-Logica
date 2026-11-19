@@ -1,6 +1,7 @@
 # Prácticas de Desarrollo Móvil
 
 Repositorio personal para organizar y documentar las prácticas, ejercicios de lógica.
+
 ---
 
 ## Contents:
@@ -22,3 +23,13 @@ Repositorio personal para organizar y documentar las prácticas, ejercicios de l
 - **Práctica 15:** [Reseñas de restaurantes](https://github.com/gaelfrmo/Practicas-Logica/tree/practica-15-resenas-rest)
 - **Práctica 16:** [Presupuesto mensual](https://github.com/gaelfrmo/Practicas-Logica/tree/practica-16-presupuesto-mensual)
 - **Práctica 17:** [Quiz de programación](https://github.com/gaelfrmo/Practicas-Logica/tree/practica-17-quiz-programacion)
+- **Práctica 18:** [Control de aforo (ViewModel)](https://github.com/gaelfrmo/Practicas-Logica/tree/practica-18-biblioteca-viewmodel)
+- **Práctica 19:** [Ajustes de lectura (ViewModel)](https://github.com/gaelfrmo/Practicas-Logica/tree/practica-19-vista-previa-viewmodel)
+- **Práctica 20:** [Inscripción a talleres (ViewModel)](https://github.com/gaelfrmo/Practicas-Logica/tree/practica-20-inscripcion-talleres-viewmodel)
+- **Práctica 21:** [Carrito Don Pepe (ViewModel)](https://github.com/gaelfrmo/Practicas-Logica/tree/practica-21-tienda-don-pepe-viewmodel)
+- **Práctica 22:** [Cuenta dividida (ViewModel)](https://github.com/gaelfrmo/Practicas-Logica/tree/practica-22-cuenta-individual-viewmodel)
+- **Práctica 23:** [Gestor de tareas (ViewModel)](https://github.com/gaelfrmo/Practicas-Logica/tree/practica-23-tareas-pendientes-viewmodel)
+- **Práctica 24:** [Inicio de sesión - Clínica Vida (ViewModel)](https://github.com/gaelfrmo/Practicas-Logica/tree/practica-24-clinica-vida-viewmodel)
+- **Práctica 25:** [Reseñas de restaurantes (ViewModel)](https://github.com/gaelfrmo/Practicas-Logica/tree/practica-25-resenas-rest-viewmodel)
+- **Práctica 26:** [Presupuesto mensual (ViewModel)](https://github.com/gaelfrmo/Practicas-Logica/tree/practica-26-presupuesto-mensual-viewmodel)
+- **Práctica 27:** [Quiz de programación (ViewModel)](https://github.com/gaelfrmo/Practicas-Logica/tree/practica-27-quiz-programacion-viewmodel)
