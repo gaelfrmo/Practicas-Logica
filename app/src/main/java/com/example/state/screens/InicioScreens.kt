@@ -15,52 +15,34 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.state.Components.camposItem
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.state.Components.camposItem
 import com.example.state.models.loginEstado
+import com.example.state.viewmodel.LoginViewModel
 
 @Composable
-fun InicioScreen(modifier: Modifier = Modifier) {
-        var textoCorreo by remember { mutableStateOf("") }
-        var textoContrasena by remember { mutableStateOf("") }
-        var recordarme by remember { mutableStateOf(false) }
-        var intentosFallidos by remember { mutableStateOf(0) }
-        var estadoLogin by remember { mutableStateOf(loginEstado.INACTIVO) }
-        val maxIntentos = 3
-        val correoCorrecto = "paciente@vida.mx"
-        val passwordCorrecta = "Vida2025"
-        val mensajeError = when (estadoLogin) {
-                loginEstado.ERROR -> "Correo o contraseña incorrectos (intento $intentosFallidos de $maxIntentos)"
-                loginEstado.BLOQUEADO -> "Demasiados intentos. Intente de nuevo más tarde."
-                else -> ""
-        }
-        when (estadoLogin) {
+fun InicioScreen(
+        modifier: Modifier = Modifier,
+        vm: LoginViewModel = viewModel()
+) {
+        when (vm.estadoLogin) {
                 loginEstado.EXITO -> {
                         HomeScreen(
-                                email = textoCorreo,
-                                onLogout = {
-                                        textoCorreo = ""
-                                        textoContrasena = ""
-                                        recordarme = false
-                                        intentosFallidos = 0
-                                        estadoLogin = loginEstado.INACTIVO
-                                }
+                                email = vm.textoCorreo,
+                                onLogout = { vm.cerrarSesion() }
                         )
                 }
                 else -> {
                         Column(
-                                modifier = Modifier.fillMaxSize(),
+                                modifier = modifier.fillMaxSize(),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.Center
                         ) {
@@ -80,35 +62,25 @@ fun InicioScreen(modifier: Modifier = Modifier) {
                                 Text(text = "Clinica Vida", fontSize = 30.sp)
                                 Text(text = "Consulta tus citas medicas")
                                 camposItem(
-                                        Correo = textoCorreo,
-                                        onCorreoChange = { textoCorreo = it },
-                                        Contraseña = textoContrasena,
-                                        onContraseñaChange = { textoContrasena = it },
-                                        recordarme = recordarme,
-                                        onRecordarmeChange = { recordarme = it }
+                                        Correo = vm.textoCorreo,
+                                        onCorreoChange = { vm.onCorreoChange(it) },
+                                        Contraseña = vm.textoContrasena,
+                                        onContraseñaChange = { vm.onContrasenaChange(it) },
+                                        recordarme = vm.recordarme,
+                                        onRecordarmeChange = { vm.onRecordarmeChange(it) }
                                 )
 
-                                if (mensajeError.isNotEmpty()) {
+                                if (vm.mensajeError.isNotEmpty()) {
                                         Spacer(modifier = Modifier.height(4.dp))
-                                        Text(text = mensajeError, color = Color.Red, fontSize = 12.sp)
+                                        Text(text = vm.mensajeError, color = Color.Red, fontSize = 12.sp)
                                 }
                                 Spacer(modifier = Modifier.height(8.dp))
                                 Button(
-                                        onClick = {
-                                                if (textoCorreo == correoCorrecto && textoContrasena == passwordCorrecta) {
-                                                        estadoLogin = loginEstado.EXITO
-                                                        intentosFallidos = 0
-                                                } else {
-                                                        intentosFallidos++
-                                                        if (intentosFallidos >= maxIntentos) {
-                                                                estadoLogin = loginEstado.BLOQUEADO
-                                                        } else {
-                                                                estadoLogin = loginEstado.ERROR
-                                                        }
-                                                }
-                                        },
-                                        enabled = estadoLogin != loginEstado.BLOQUEADO,
-                                        modifier = Modifier.width(300.dp).height(40.dp)
+                                        onClick = { vm.iniciarSesion() },
+                                        enabled = vm.estadoLogin != loginEstado.BLOQUEADO,
+                                        modifier = Modifier
+                                                .width(300.dp)
+                                                .height(40.dp)
                                 ) {
                                         Text(text = "Entrar", fontSize = 18.sp)
                                 }
@@ -122,7 +94,9 @@ fun InicioScreen(modifier: Modifier = Modifier) {
 @Composable
 fun HomeScreen(email: String, onLogout: () -> Unit) {
         Column(
-                modifier = Modifier.fillMaxSize().padding(24.dp),
+                modifier = Modifier
+                        .fillMaxSize()
+                        .padding(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
         ) {
