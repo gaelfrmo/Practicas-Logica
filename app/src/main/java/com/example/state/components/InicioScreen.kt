@@ -19,7 +19,9 @@ fun InicioScreen(
     val esValido = nombre.trim().length >= 2
 
     Column(
-        modifier = modifier.fillMaxSize().padding(24.dp),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(24.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -38,7 +40,9 @@ fun InicioScreen(
         Button(
             onClick = onComenzar,
             enabled = esValido,
-            modifier = Modifier.fillMaxWidth().height(48.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(48.dp)
         ) {
             Text("Comenzar", fontSize = 16.sp)
         }
