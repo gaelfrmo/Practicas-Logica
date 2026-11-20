@@ -9,7 +9,6 @@ import com.example.state.components.PreguntaScreen
 import com.example.state.components.ResultadoScreen
 import com.example.state.model.Pantalla
 import com.example.state.model.Pregunta
-
 val listaPreguntasQuiz = listOf(
         Pregunta("que tipo de dato conviene usar para guardar el valor 3.14?", listOf("Int", "Double", "String", "Boolean"), 1),
         Pregunta("cual es la extension de los archivos de codigo kotlin?", listOf(".java", ".kt", ".xml", ".js"), 1),
